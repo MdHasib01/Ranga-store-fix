@@ -4,15 +4,19 @@
   padding: 5px;
   margin: 10px;
   width: 250px;
+  overflow: hidden;
 }
 .book-card img {
   width: 240px;
   height: 300px;
 }
-/* .book-card p {
-  text-align: center;
-  margin: 5px 0;
-} */
+.book-card h3 {
+  font-size: 20px;
+}
+.book-card p {
+  margin: 2px;
+  font-size: 1.1em;
+}
 #display-book {
   display: flex;
   flex-wrap: wrap;
@@ -21,4 +25,8 @@
   font-size: 2em;
   color: red;
   display: none;
+}
+#search-volume p {
+  font-weight: bold;
+  font-style: 20px;
 }

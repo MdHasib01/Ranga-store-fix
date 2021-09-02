@@ -8,24 +8,43 @@ const searchBook = ()=>{
     fetch(url)
     .then(res => res.json())
     .then(data => displaySearch(data))
+    
 };
+// no result error function
+const resultNone = displayStyle=>{document.getElementById('no-result').style.display=displayStyle;
+}
 
 const displaySearch = booksData =>{
     const books=booksData.docs
-    console.log(booksData.numFound)
+        //search volume display
+        const searchVolume = document.getElementById('search-volume')
+        searchVolume.textContent=''
+        const p = document.createElement('p')
+        p.innerText=`Result Found: ${booksData.numFound}`;
+        searchVolume.appendChild(p)
+        //no result error
+        if(booksData.numFound===0){
+            resultNone('block')
+            document.getElementById('search-volume').style.display='none'
+        }
+        else{
+            resultNone('none')
+            document.getElementById('search-volume').style.display='block'
+        }
+        //clear search result
+        const displayBookResult = document.getElementById('display-book');
+        displayBookResult.textContent=''
     books.forEach(book => {
-        console.log(book)
+        // console.log(book)
        const displayBook = document.getElementById('display-book');
        const div = document.createElement('div');
        div.classList.add('book-card')
        div.innerHTML=`
        <img src="${`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}" alt="">
-       <p class=" text-center">Book Nanme: ${book.title}</p>
-       <p>${book.author_name}</p>
-       <p>${book.publish_year}</p>
-
-       
-      
+       <h3>Book Name: ${book.title}</h3>
+       <p>Author Name: ${book.author_namer}</p>
+       <p>Publisher: ${book.publisher}</p>
+       <p>Publish Year: ${book.publish_year}</p>
        `;
        displayBook.appendChild(div)
     });
