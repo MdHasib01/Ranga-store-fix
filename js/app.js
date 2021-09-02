@@ -2,17 +2,16 @@
 const searchBook = ()=>{
     const searchField = document.getElementById('search-input');
     const searchText = searchField.value;
-
-
-    // console.log(inputFieldText);
+    //clear input
     searchField.value=''
+
     const url =`http://openlibrary.org/search.json?q=${searchText}`
     fetch(url)
     .then(res => res.json())
     .then(data => displaySearch(data))
     
 };
-// no result error function
+// no result found (error) function
 const resultNone = displayStyle=>{document.getElementById('no-result').style.display=displayStyle;
 }
 
@@ -21,13 +20,13 @@ const displaySearch = booksData =>{
 
         //search volume display
         const searchVolume = document.getElementById('search-volume')
+        //clear search display, before every search
         searchVolume.textContent=''
         const p = document.createElement('p')
         p.innerText=`Result Found: ${booksData.numFound}`;
         searchVolume.appendChild(p)
 
-
-        //no result error
+        //no result found (error message) display
         if(booksData.numFound===0){
             resultNone('block')
             document.getElementById('search-volume').style.display='none'
@@ -37,14 +36,11 @@ const displaySearch = booksData =>{
             document.getElementById('search-volume').style.display='block'
         }
 
-
-        //clear search result
+        //clear search result display, after (no result found)
         const displayBookResult = document.getElementById('display-book');
         displayBookResult.textContent=''
 
-
     books.forEach(book => {
-        console.log(book)
        const displayBook = document.getElementById('display-book');
        const div = document.createElement('div');
        div.classList.add('book-card')
